@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.SimpleCursorAdapter
+import com.example.usandosqlite_pm25s_2023.adapter.MeuAdapter
 import com.example.usandosqlite_pm25s_2023.database.DatabaseHandler
 import com.example.usandosqlite_pm25s_2023.entity.Pessoa
 
@@ -24,14 +25,7 @@ class ListarActivity : AppCompatActivity() {
 
         val cursor = banco.listCursor()
 
-        val adapter = SimpleCursorAdapter(
-            this,
-            R.layout.elemento_lista,
-            cursor,
-            arrayOf( "nome", "telefone" ),
-            intArrayOf( R.id.tvNomeElementoLista, R.id.tvTelefoneElementoLista ),
-            0
-        )
+        val adapter = MeuAdapter( this, cursor )
 
         lvPrincipal.adapter = adapter
 
