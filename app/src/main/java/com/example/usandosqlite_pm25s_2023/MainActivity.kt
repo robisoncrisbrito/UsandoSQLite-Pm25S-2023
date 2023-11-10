@@ -1,6 +1,7 @@
 package com.example.usandosqlite_pm25s_2023
 
 import android.content.ContentValues
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -66,9 +67,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
     fun btListarOnClick(view: View) {
-        val saida = banco.list()
+        //val saida = banco.list()
 
-        Toast.makeText( this, saida, Toast.LENGTH_SHORT ).show()
+        //Toast.makeText( this, saida, Toast.LENGTH_SHORT ).show()
+
+        val intent = Intent( this, ListarActivity::class.java)
+        startActivity( intent )
 
     }
 
