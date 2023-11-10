@@ -2,6 +2,7 @@ package com.example.usandosqlite_pm25s_2023.database
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build.VERSION_CODES.P
@@ -71,7 +72,7 @@ class DatabaseHandler ( context : Context ) : SQLiteOpenHelper ( context, DATABA
         }
     }
 
-    fun list() : String {
+    fun list() : MutableList<Pessoa> {
         val bd = this.writableDatabase
 
         val cursor = bd.query( TABLE_NAME,
@@ -83,15 +84,28 @@ class DatabaseHandler ( context : Context ) : SQLiteOpenHelper ( context, DATABA
             null
         )
 
-        val saida = StringBuilder()
+        val registros = mutableListOf<Pessoa>()
 
         while ( cursor.moveToNext() ) {
-            saida.append( cursor.getString( 1 ) )
-            saida.append( " - ")
-            saida.append( cursor.getString( 2 ) )
-            saida.append( "\n")
+            val pessoa = Pessoa( cursor.getInt( 0 ), cursor.getString( 1 ), cursor.getString( 2 ) )
+            registros.add( pessoa )
         }
 
-        return saida.toString()
+        return registros
+    }
+
+    fun listCursor() : Cursor {
+        val bd = this.writableDatabase
+
+        val cursor = bd.query( TABLE_NAME,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        return cursor
     }
 }
