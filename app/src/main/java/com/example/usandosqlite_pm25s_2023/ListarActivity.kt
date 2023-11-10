@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.SimpleCursorAdapter
 import com.example.usandosqlite_pm25s_2023.database.DatabaseHandler
 import com.example.usandosqlite_pm25s_2023.entity.Pessoa
 
@@ -21,22 +22,19 @@ class ListarActivity : AppCompatActivity() {
 
         lvPrincipal = findViewById( R.id.lvPrincipal )
 
-        val registros = recuperarArrayString( banco.list() )
+        val cursor = banco.listCursor()
 
-        val adapter = ArrayAdapter<String> ( this, android.R.layout.simple_list_item_1, registros )
+        val adapter = SimpleCursorAdapter(
+            this,
+            android.R.layout.simple_list_item_2,
+            cursor,
+            arrayOf( "nome", "telefone" ),
+            intArrayOf( android.R.id.text1, android.R.id.text2 ),
+            0
+        )
+
         lvPrincipal.adapter = adapter
 
     }
 
-    fun recuperarArrayString( registros : MutableList<Pessoa> ) : MutableList<String> {
-
-        val listaNomes = mutableListOf<String>()
-
-        for ( pessoa in registros ) {
-            listaNomes.add( pessoa.nome )
-        }
-
-        return listaNomes
-
-    }
 }
