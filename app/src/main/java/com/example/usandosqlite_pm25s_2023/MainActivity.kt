@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.usandosqlite_pm25s_2023.database.DatabaseHandler
@@ -38,6 +39,13 @@ class MainActivity : AppCompatActivity() {
             etCod.setText( cod.toString() )
             etNome.setText( nome )
             etTelefone.setText( telefone )
+        } else {
+            val btExcluir = findViewById<Button>( R.id.btExcluir )
+            val btPesquisar = findViewById<Button>( R.id.btPesquisar )
+
+            btExcluir.visibility = View.GONE
+            btPesquisar.visibility = View.GONE
+
         }
 
 
