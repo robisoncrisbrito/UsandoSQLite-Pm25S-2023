@@ -30,29 +30,44 @@ class MainActivity : AppCompatActivity() {
 
         banco = DatabaseHandler( this )
 
+        if ( intent.getIntExtra( "cod",0 ) != 0 ) {
+            val cod = intent.getIntExtra("cod", 0)
+            val nome = intent.getStringExtra("nome")
+            val telefone = intent.getStringExtra("telefone")
+
+            etCod.setText( cod.toString() )
+            etNome.setText( nome )
+            etTelefone.setText( telefone )
+        }
+
+
+
+
     }
 
-    fun btIncluirOnClick(view: View) {
-        val pessoa = Pessoa( 0, etNome.text.toString(), etTelefone.text.toString() )
-
-        banco.insert( pessoa )
-
-        Toast.makeText( this, "Inclusão realizada com sucesso", Toast.LENGTH_SHORT ).show()
-
-        limparTela()
-    }
     fun btAlterarOnClick(view: View) {
-        val pessoa = Pessoa( etCod.text.toString().toInt(), etNome.text.toString(), etTelefone.text.toString() )
 
-        banco.update( pessoa )
+        if ( etCod.text.toString().isEmpty() ) {
+            val pessoa = Pessoa( 0, etNome.text.toString(), etTelefone.text.toString() )
+            banco.insert( pessoa )
+            Toast.makeText( this, "Inclusão realizada com sucesso", Toast.LENGTH_SHORT ).show()
+            limparTela()
+        } else {
+            val pessoa = Pessoa( etCod.text.toString().toInt(), etNome.text.toString(), etTelefone.text.toString() )
+            banco.update( pessoa )
+            Toast.makeText( this, "Alteração realizada com sucesso", Toast.LENGTH_SHORT ).show()
+        }
 
-        Toast.makeText( this, "Alteração realizada com sucesso", Toast.LENGTH_SHORT ).show()
+        finish()
+
     }
     fun btExcluirOnClick(view: View) {
 
         banco.delete( etCod.text.toString().toInt() )
 
         Toast.makeText( this, "Exclusão realizada com sucesso", Toast.LENGTH_SHORT ).show()
+
+        finish()
     }
     fun btPesquisarOnClick(view: View) {
         val cod = etCod.text.toString().toInt()
